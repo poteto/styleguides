@@ -106,10 +106,6 @@ end
 
 ```ruby
 # bad
-def obliterate(things, gently = true, except = [], at = Time.now)
-  ...
-end
-
 def bake(pie, temp: 400, at = Time.now)
   # Bake stuff
 end
@@ -118,7 +114,7 @@ end
 def bake(pie, options = {})
   default_options = {
     temp: 400,
-    :at => Time.now
+    at: Time.now
   }
   options.reverse_merge!(default_options)
 
@@ -171,14 +167,14 @@ nil?
 ```
 
 If the method doesn't return a value (or we don't care about the return), parentheses are optional
-(Especially if the arguments overflow to multiple lines, parentheses may add readability).
+If the arguments overflow to multiple lines, parentheses will improve the readability
 
 ```ruby
 # okay
-render(:partial => 'foo')
+render(partial: 'foo')
 
 # okay
-render :partial => 'foo'
+render partial: 'foo'
 ```
 
 In either case:
@@ -188,7 +184,7 @@ In either case:
 
 ```ruby
 # bad
-get '/v1/reservations', { :id => 54875 }
+get '/v1/reservations', { id: 54875 }
 
 # good
 get '/v1/reservations', id: 54875
@@ -212,11 +208,13 @@ if some_condition
 end
 ```
 
-* The `and` and `or` keywords are banned. It's just not worth it. Always use `&&` and `||` instead.
+* The `and` and `or` keywords are banned. They have a lower order of
+  precednce and will cause unexpected side effects. Always use `&&` and
+  `||` instead.
 
 * Modifier `if/unless` usage is okay when the body is simple, the
   condition is simple, and the whole thing fits on one line. Otherwise,
-  avoid modifier `if/unless`.
+  avoid modifier `if/unless`. `return if object.nil?` is ok.
 
 * `unless` with `else` is confusing. Please use the positive case first.
 
@@ -323,7 +321,7 @@ end
 arr.each { |elem| puts elem }
 ```
 
-* Prefer `{...}` over `do...end` for single-line blocks.  Avoid using
+* Use `{...}` over `do...end` for single-line blocks.  Do not use
   `{...}` for multi-line blocks (multiline chaining is always
   ugly). Always use `do...end` for "control flow" and "method
   definitions" (e.g. in Rakefiles and certain DSLs).  Avoid `do...end`
@@ -332,28 +330,25 @@ arr.each { |elem| puts elem }
 ```ruby
 names = ["Bozhidar", "Steve", "Sarah"]
 
-# good
-names.each { |name| puts name }
-
 # bad
 names.each do |name|
   puts name
 end
 
 # good
-names.select { |name| name.start_with?("S") }.map { |name| name.upcase }
+names.each { |name| puts name }
 
 # bad
 names.select do |name|
   name.start_with?("S")
 end.map { |name| name.upcase }
+
+# good
+names.select { |name| name.start_with?("S") }.map { |name| name.upcase }
 ```
 
-Some will argue that multiline chaining would look okay with the use of
-`{...}`, but they should ask themselves if this code is really readable and
-whether the block's content can be extracted into nifty methods.
-
-* Avoid `return` where not required.
+* Utilize Ruby's implicit return, only use `return` statements when
+  necessary (returning early from a function)
 
 ```ruby
 # bad
@@ -500,7 +495,8 @@ else
 end
 ```
 
-* Avoid rescuing the `Exception` class.
+* Do not rescuing the `Exception` class, be explicit in what you are
+  rescuing from
 
 ```ruby
 # bad
@@ -510,17 +506,17 @@ rescue Exception
   # exception handling
 end
 
-# good
-begin
-  # an exception occurs here
-rescue StandardError
-  # exception handling
-end
-
-# acceptable
+# bad
 begin
   # an exception occurs here
 rescue
+  # exception handling
+end
+
+# good
+begin
+  # an exception occurs here
+rescue ActiveRecord::RecordNotFound
   # exception handling
 end
 ```
@@ -532,6 +528,10 @@ end
   is a hybrid of `Array`'s intuitive inter-operation facilities and
   `Hash`'s fast lookup.
 
+```Ruby
+Set.new([1,1,2,3]) # => #<Set: {1, 2, 3}>
+```
+
 * Use symbols instead of strings as hash keys.
 
 ```ruby
@@ -539,7 +539,7 @@ end
 hash = { 'one' => 1, 'two' => 2, 'three' => 3 }
 
 # good
-hash = { :one => 1, :two => 2, :three => 3 }
+hash = { one: 1, two: 2, three: 3 }
 ```
 
 * Use multi-line hashes when it makes the code more readable, and use
@@ -548,12 +548,12 @@ hash = { :one => 1, :two => 2, :three => 3 }
 
 ```ruby
 hash = {
-  :protocol => 'https',
-  :only_path => false,
-  :controller => :users,
-  :action => :set_password,
-  :redirect => @redirect_url,
-  :secret => @secret
+  protocol: 'https',
+  only_path: false,
+  controller: :users,
+  action: :set_password,
+  redirect: @redirect_url,
+  secret: @secret
 }
 ```
 
