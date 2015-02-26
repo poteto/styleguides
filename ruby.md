@@ -79,7 +79,7 @@ wall.paint(:favorite_color)
 > When writing your comments, write for your audience: the next contributor who
 > will need to understand your code. Be generous — the next one may be you!
 
-&mdash;[Google C++ Style Guide][google-c++]
+ - [Google C++ Style Guide](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html#Comments)
 
 ### Commented-out code
 
@@ -102,92 +102,19 @@ def some_method_with_arguments(arg1, arg2)
 end
 ```
 
-* Do not use default arguments. Use an options hash instead.
+* Do not use default arguments. Use keyword arguments instead.
+  * [Keyword arguments were introduced in Ruby 2.0](http://globaldev.co.uk/2013/03/ruby-2-0-0-in-detail/#keyword_arguments)
 
 ```ruby
 # bad
-def bake(pie, temp: 400, at = Time.now)
+def bake(pie, temp = 400, at = Time.now)
   # Bake stuff
 end
 
 # good
-def bake(pie, options = {})
-  default_options = {
-    temp: 400,
-    at: Time.now
-  }
-  options.reverse_merge!(default_options)
-
+def bake(pie, temp: 400, at: Time.now)
   # Bake stuff
 end
-```
-
-### Method calls
-
-**Use parentheses** for a method call:
-
-* If the method returns a value.
-
-```ruby
-# bad
-@current_user = User.find_by_id 1964192
-
-# good
-@current_user = User.find_by_id(1964192)
-```
-
-* If the first argument to the method uses parentheses.
-
-```ruby
-# bad
-put! (x + y) % len, value
-
-# good
-put!((x + y) % len, value)
-```
-
-* Never put a space between a method name and the opening parenthesis.
-
-```ruby
-# bad
-f (3 + 2) + 1
-
-# good
-f(3 + 2) + 1
-```
-
-**Omit parentheses** for a method call if the method accepts no arguments.
-
-```ruby
-# bad
-nil?()
-
-# good
-nil?
-```
-
-If the method doesn't return a value (or we don't care about the return), parentheses are optional
-If the arguments overflow to multiple lines, parentheses will improve the readability
-
-```ruby
-# okay
-render(partial: 'foo')
-
-# okay
-render partial: 'foo'
-```
-
-In either case:
-
-* If a method accepts an options hash as the last argument, do not use `{` `}`
-  during invocation.
-
-```ruby
-# bad
-get '/v1/reservations', { id: 54875 }
-
-# good
-get '/v1/reservations', id: 54875
 ```
 
 ## Conditional Expressions
@@ -600,10 +527,10 @@ end
 > drastically different from the existing code around it, it throws readers out
 > of their rhythm when they go to read it. Avoid this.
 
-&mdash;[Google C++ Style Guide][google-c++]
+[Google C++ Style Guide](https://google-styleguide.googlecode.com/svn/trunk/cppguide.html)
 
 Thanks to these kind folks!
 
-[airbnb-ruby]: https://github.com/airbnb/ruby
-[bbatsov-ruby]: https://github.com/bbatsov/ruby-style-guide
-[github-ruby]: https://github.com/styleguide/ruby
+[airbnb-ruby](https://github.com/airbnb/ruby)
+[bbatsov-ruby](https://github.com/bbatsov/ruby-style-guide)
+[github-ruby](https://github.com/styleguide/ruby)
