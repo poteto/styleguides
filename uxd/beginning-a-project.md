@@ -16,7 +16,7 @@
 ## Questions to Ask Designer
 
 * Do we have rights to all the images being used in the mockup?
-* Does the client have licenses to all the fonts being used? 
+* Does the client have licenses to all the fonts being used?
 
 ## Example File Structure
 
@@ -60,9 +60,9 @@ We use modified versions of the
 [Meyer reset]
 (http://meyerweb.com/eric/tools/css/reset/).
 If you are sure that certain elements will not be used in the project,
-they may be deleted. 
+they may be deleted.
 
-    /* http://meyerweb.com/eric/tools/css/reset/ 
+    /* http://meyerweb.com/eric/tools/css/reset/
        v2.0 | 20110126
        License: none (public domain)
     */
@@ -76,8 +76,8 @@ they may be deleted.
     dl, dt, dd, ol, ul, li,
     fieldset, form, label, legend,
     table, caption, tbody, tfoot, thead, tr, th, td,
-    article, aside, canvas, details, embed, 
-    figure, figcaption, footer, header, hgroup, 
+    article, aside, canvas, details, embed,
+    figure, figcaption, footer, header, hgroup,
     menu, nav, output, ruby, section, summary,
     time, mark, audio, video {
       margin: 0;
@@ -88,7 +88,7 @@ they may be deleted.
       vertical-align: baseline;
     }
     /* HTML5 display-role reset for older browsers */
-    article, aside, details, figcaption, figure, 
+    article, aside, details, figcaption, figure,
     footer, header, hgroup, menu, nav, section {
       display: block;
     }
@@ -111,7 +111,7 @@ they may be deleted.
       border-spacing: 0;
     }
 
-## LAYOUT.SCSS 
+## LAYOUT.SCSS
 
 This does not closely follow
 [SMACSS' Layout Rules]
@@ -119,16 +119,16 @@ This does not closely follow
 We use `layout.scss` for wraps, grids and columns. Here is a
 [JS Bin]
 (http://jsbin.com/tiyome/3/edit?html,css,output) that illustrates some
-common patterns. 
+common patterns.
 
-`.l-relative` is used for wrapping `div`&rsquo;s that do not need any
+`.l-relative` is used for wrapping `div`’s that do not need any
 styling other than `position: relative`.
 
     .l-relative {
       position: relative;
     }
 
-`.l-overflow` is used for wrapping `div`&rsquo;s that do not need any
+`.l-overflow` is used for wrapping `div`’s that do not need any
 styling other than `overflow: auto`.
 
     .l-overflow {

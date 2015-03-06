@@ -4,11 +4,11 @@
 
 * Any question you can think of!
 
-* I don't fully understand this problem even after research, can we pair on it?
+* I don’t fully understand this problem even after research, can we pair on it?
 
 ## Vim / tmux
 
-Utilize google first to find out what you don't know about tmux and Vim.
+Utilize google first to find out what you don’t know about tmux and Vim.
 * Complete
   [Vim Adventures]
   (http://vim-adventures.com/)
@@ -51,7 +51,7 @@ Utilize google first to find out what you don't know about tmux and Vim.
 
 ## Add Yourself to DockYard Team Page
 
-Write a personal bio that follows other team member's bios on the
+Write a personal bio that follows other team member’s bios on the
 [DockYard Team Page]
 (http://dockyard.com/team).
 * Clone the
@@ -74,7 +74,7 @@ so you are prepared for your first blog post.
 
 ## Additional Research
 
-If you don't know the answer to a problem try to solve it yourself
+If you don’t know the answer to a problem try to solve it yourself
 with Google first. If you are still stumped just ask for some help and anyone
 will be happy to help.
 
