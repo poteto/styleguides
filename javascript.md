@@ -2,18 +2,29 @@
 
 ## Table Of Contents
 
-+ [Objects](#objects)
-+ [Array](#arrays)
-+ [Variables](#variables)
-+ [Whitespace](#whitespace)
-+ [Commas](#commas)
-+ [Semicolons](#semicolons)
-+ [Block Statements](#block-statements)
-+ [Conditional Statements](#conditional-statements)
-+ [Properties](#properties)
-+ [Functions](#functions)
-+ [Function Arguments](#function-arguments)
-+ [Comments](#comments)
+### Grammar
+
+* [Block Statements](#block-statements)
+* [Conditional Statements] (#conditional-statements)
+* [Commas](#commas)
+* [Comments](#comments)
+* [Semicolons](#semicolons)
+* [Variables](#variables)
+* [Whitespace](#whitespace)
+
+### Objects
+
+* [Objects](#objects)
+* [Properties](#properties)
+
+### Arrays
+
+* [Arrays](#arrays)
+
+### Functions
+
+* [Functions](#functions)
+* [Function Arguments](#function-arguments)
 
 ## Objects
 
@@ -37,7 +48,7 @@ var bar = { color: 'orange' };
 var foo = [];
 ```
 
-+ If you know the exact length and know that array is not going to grow, use `Array`.
++ Use new Array if you know the exact length of the array and know that its length will not change.
 
 ```javascript
 var foo = new Array(16);
@@ -48,6 +59,12 @@ var foo = new Array(16);
 ```javascript
 var foo = [];
 foo.push('bar');
+```
+
++ Join single line array items with a space.
+
+```javascript
+var foo = ['a', 'b', 'c'];
 ```
 
 ## Variables
@@ -65,7 +82,7 @@ var a = 1;
 var b = 2;
 ```
 
-+ Declare variables at the top of their scope.
++ Declare variables at the top of their block scope.
 
 ```javascript
 function foo() {
@@ -74,6 +91,16 @@ function foo() {
   console.log('foo bar!');
 
   bar = getBar();
+}
+
+function bar() {
+  var coolList;
+
+  // code
+
+  for (var index = 0, length = coolThing.length; index < length; index++) {
+    // code
+  }
 }
 ```
 
@@ -87,7 +114,7 @@ function() {
 }
 ```
 
-+ Place 1 space before the leading brace.
++ Place 1 space before a leading brace (`{`).
 
 ```javascript
 obj.set('foo', {
@@ -113,6 +140,8 @@ function foo() {
 foo();
 ```
 
++ No trailing whitespace.
+
 ## Commas
 
 + Skip trailing commas.
@@ -122,14 +151,14 @@ var foo = [1, 2, 3];
 var bar = { a: 'a' };
 ```
 
-+ Skip leading commas.
++ Skip trailing and leading commas.
 
 ```javascript
-var foo = [
-  1,
-  2,
-  3
-];
+var foo = [1, 2, 3];
+var bar = {
+  a: 'a',
+  b: 'b'
+};
 ```
 
 ## Semicolons
@@ -174,7 +203,7 @@ try {
 }
 ```
 
-+ Opening curly brace should be on the same line as the beginning of a statement or declaration.
++ Opening curly brace (`{`) should be on the same line as the beginning of a statement or declaration.
 
 ```javascript
 function foo() {
@@ -220,16 +249,16 @@ if (foo === 1) {
 
 ## Conditional Statements
 
-+ Use `===` and `!==`.
-+ Use curly braces.
++ Use strict equality (`===` and `!==`).
++ Use curly braces for all conditional blocks.
 
 ```javascript
 if (notFound) {
-  return;
+  // code
 }
 ```
 
-+ Use explicit conditions.
++ Use explicit conditions when checking for non `null`, `undefined`, `true`, `false` values.
 
 ```javascript
 if (arr.length > 0) {
@@ -238,6 +267,14 @@ if (arr.length > 0) {
 
 if (foo !== '') {
   // code
+}
+```
+
++ Use multiline format.
+
+```javascript
+if (foo === 'bar') {
+  return;
 }
 ```
 
@@ -253,7 +290,7 @@ var foo = {
 foo.bar;
 ```
 
-+ Use `[]` when accessing properties with a variable.
++ Use `[]` when accessing properties via a variable.
 
 ```javascript
 var propertyName = 'bar';
@@ -270,6 +307,38 @@ foo[propertyName];
 
 ```javascript
 function fooBar() {
+}
+
+var foo = {
+  bar: function foo_bar() {
+    // code
+  }
+};
+
+var foo = function foo() {
+  // code
+};
+```
+
++ Use scope to lookup functions (not variables).
+
+```javascript
+// GOOD:
+function foo() {
+  function bar() {
+    // code
+  }
+
+  bar();
+}
+
+// BAD:
+function foo() {
+  var bar = function bar() {
+    // code
+  }
+
+  bar();
 }
 ```
 
@@ -295,11 +364,20 @@ function fooBar() {
 + Don't re-assign the arguments.
 
 ```javascript
+// Don't re-assigning the arguments
 function fooBar() {
   arguments = 3;
 }
 
+// Don't re-assigning the arguments
 function fooBar(opt) {
+  opt = 3;
+}
+
+// Use a new variable if you need to assign the value of an argument
+function fooBar(_opt) {
+  var opt = _opt;
+
   opt = 3;
 }
 ```
@@ -316,9 +394,17 @@ function fooBar(opt) {
 
 ## Comments
 
++ Use multiline comments with two leading asterisks for documentation.
+
+```javascript
+/**
+  This is documentation for something just below.
+*/
+```
+
 + Use [YUIDoc](http://yui.github.io/yuidoc/syntax/index.html) comments for
   documenting functions.
-+ Use `//` for single line comments.
++ Use `//` for non-documenting comments (both single and multiline).
 
 ```javascript
 function foo() {
@@ -330,3 +416,5 @@ function foo() {
   console.log(bar);
 }
 ```
+
++ Pad comments with a space.
