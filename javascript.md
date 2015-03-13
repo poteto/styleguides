@@ -7,8 +7,8 @@
 * [Block Statements](#block-statements)
 * [Conditional Statements] (#conditional-statements)
 * [Commas](#commas)
-* [Comments](#comments)
 * [Semicolons](#semicolons)
+* [Comments](#comments)
 * [Variables](#variables)
 * [Whitespace](#whitespace)
 
@@ -21,153 +21,14 @@
 
 * [Arrays](#arrays)
 
-### Functions
+## Functions
 
 * [Functions](#functions)
 * [Function Arguments](#function-arguments)
 
-## Objects
-
-+ Use literal form for object creation.
-
-```javascript
-var foo = {};
-```
-
-+ Pad single-line objects with white-space.
-
-```javascript
-var bar = { color: 'orange' };
-```
-
-## Arrays
-
-+ Use literal form for array creation (unless you know the exact length).
-
-```javascript
-var foo = [];
-```
-
-+ Use new Array if you know the exact length of the array and know that its length will not change.
-
-```javascript
-var foo = new Array(16);
-```
-
-+ Use `push` to add an item to an array.
-
-```javascript
-var foo = [];
-foo.push('bar');
-```
-
-+ Join single line array items with a space.
-
-```javascript
-var foo = ['a', 'b', 'c'];
-```
-
-## Variables
-
-+ Put all non-assigning declarations on one line.
-
-```javascript
-var a, b;
-```
-
-+ Use a single `var` declaration for each assignment.
-
-```javascript
-var a = 1;
-var b = 2;
-```
-
-+ Declare variables at the top of their block scope.
-
-```javascript
-function foo() {
-  var bar;
-
-  console.log('foo bar!');
-
-  bar = getBar();
-}
-
-function bar() {
-  var coolList;
-
-  // code
-
-  for (var index = 0, length = coolThing.length; index < length; index++) {
-    // code
-  }
-}
-```
-
-## Whitespace
-
-+ Use soft tabs set to 2 spaces.
-
-```javascript
-function() {
-∙∙var name;
-}
-```
-
-+ Place 1 space before a leading brace (`{`).
-
-```javascript
-obj.set('foo', {
-  foo: 'bar'
-});
-
-test('foo-bar', function() {
-});
-```
-
-+ No spaces before semicolons.
-
-```javascript
-var foo = {};
-```
-
-+ Keep parenthesis adjacent to the function name when declared or called.
-
-```javascript
-function foo() {
-}
-
-foo();
-```
-
-+ No trailing whitespace.
-
-## Commas
-
-+ Skip trailing commas.
-
-```javascript
-var foo = [1, 2, 3];
-var bar = { a: 'a' };
-```
-
-+ Skip trailing and leading commas.
-
-```javascript
-var foo = [1, 2, 3];
-var bar = {
-  a: 'a',
-  b: 'b'
-};
-```
-
-## Semicolons
-
-+ Use semicolons.
-
 ## Block Statements
 
-+ Use spaces.
++ Use spaces before leading brace.
 
 ```javascript
 // conditional
@@ -276,6 +137,172 @@ if (foo !== '') {
 if (foo === 'bar') {
   return;
 }
+```
+
+## Commas
+
++ Skip trailing commas.
+
+```javascript
+var foo = [1, 2, 3];
+var bar = { a: 'a' };
+```
+
++ Skip trailing and leading commas.
+
+```javascript
+var foo = [1, 2, 3];
+var bar = {
+  a: 'a',
+  b: 'b'
+};
+```
+
+## Semicolons
+
++ Use semicolons.
+
+## Comments
+
++ Use multiline comments with two leading asterisks for documentation.
+
+```javascript
+/**
+  This is documentation for something just below.
+*/
+```
+
++ Use [YUIDoc](http://yui.github.io/yuidoc/syntax/index.html) comments for
+  documenting functions.
++ Use `//` for non-documenting comments (both single and multiline).
+
+```javascript
+function foo() {
+  var bar = 5;
+
+  // multiplies `bar` by 2.
+  fooBar(bar);
+
+  console.log(bar);
+}
+```
+
++ Pad comments with a space.
+
+## Variables
+
++ Put all non-assigning declarations on one line.
+
+```javascript
+var a, b;
+```
+
++ Use a single `var` declaration for each assignment.
+
+```javascript
+var a = 1;
+var b = 2;
+```
+
++ Declare variables at the top of their block scope.
+
+```javascript
+function foo() {
+  var bar;
+
+  console.log('foo bar!');
+
+  bar = getBar();
+}
+
+function bar() {
+  var coolList;
+
+  // code
+
+  for (var index = 0, length = coolThing.length; index < length; index++) {
+    // code
+  }
+}
+```
+
+## Whitespace
+
++ Use soft tabs set to 2 spaces.
+
+```javascript
+function() {
+∙∙var name;
+}
+```
+
++ Place 1 space before a leading brace (`{`).
+
+```javascript
+obj.set('foo', {
+  foo: 'bar'
+});
+
+test('foo-bar', function() {
+});
+```
+
++ No spaces before semicolons.
+
+```javascript
+var foo = {};
+```
+
++ Keep parenthesis adjacent to the function name when declared or called.
+
+```javascript
+function foo() {
+}
+
+foo();
+```
+
++ No trailing whitespace.
+
+## Objects
+
++ Use literal form for object creation.
+
+```javascript
+var foo = {};
+```
+
++ Pad single-line objects with white-space.
+
+```javascript
+var bar = { color: 'orange' };
+```
+
+## Arrays
+
++ Use literal form for array creation (unless you know the exact length).
+
+```javascript
+var foo = [];
+```
+
++ Use new Array if you know the exact length of the array and know that its length will not change.
+
+```javascript
+var foo = new Array(16);
+```
+
++ Use `push` to add an item to an array.
+
+```javascript
+var foo = [];
+foo.push('bar');
+```
+
++ Join single line array items with a space.
+
+```javascript
+var foo = ['a', 'b', 'c'];
 ```
 
 ## Properties
@@ -391,30 +418,3 @@ function fooBar(opt) {
   options = 3;
 }
 ```
-
-## Comments
-
-+ Use multiline comments with two leading asterisks for documentation.
-
-```javascript
-/**
-  This is documentation for something just below.
-*/
-```
-
-+ Use [YUIDoc](http://yui.github.io/yuidoc/syntax/index.html) comments for
-  documenting functions.
-+ Use `//` for non-documenting comments (both single and multiline).
-
-```javascript
-function foo() {
-  var bar = 5;
-
-  // multiplies `bar` by 2.
-  fooBar(bar);
-
-  console.log(bar);
-}
-```
-
-+ Pad comments with a space.
