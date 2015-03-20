@@ -246,4 +246,113 @@ method in the view helper or the model.
 in the Gemfile.
 
 ## Testing
+
 ## Gems
+
+### Grouping your dependencies
+
+Place gems in their appropriate group environment. Bundler provides a `groups` feature
+that allows you to seperate your gem dependencies into environments that
+make the most sense.
+
+```ruby
+# bad
+gem 'byebug'
+
+# good in-line syntax
+gem 'byebug', group: :development
+
+# good block syntax
+group :development do
+  gem 'byebug'
+end
+```
+
+### Useful gems
+
+#### General
+
+* [`active_model_serializers`](https://github.com/rails-api/active_model_serializers): Brings
+  convention over configuration to your JSON generation.
+
+* [`carrierwave`](https://github.com/carrierwaveuploader/carrierwave): Proves a simple
+  and extremely flexible way to upload files.
+
+* [`context_validations`](https://github.com/dockyard/ruby-context_validations): Context
+  based validations for model instances.
+
+* [`destroyed_at`](https://github.com/dockyard/ruby-destroyed_at): Allows you to
+  "destroy" an object without deleting the record or assocaited records.
+
+* [`easy_auth`](https://github.com/dockyard/ruby-easy_auth): Simple drop in authentication
+  for Rails 3.2+
+
+  * To be used in conjunction with other auth gems found
+    [here](https://github.com/dockyard/ruby-easy_auth/wiki/Plugins).
+
+* [`friendly_id`](https://github.com/norman/friendly_id): Addon to Ruby's Active Record
+  that allows you to replace ids in your URLs with strings.
+
+* [`geocoder`](https://github.com/alexreisner/geocoder): Complete geocoding solution for Ruby.
+
+* [`pages`](https://github.com/dockyard/pages): Simple dynamic yet static pages.
+
+* [`party_foul`](https://github.com/dockyard/party_foul): Rails exceptions automatically
+  opened as issues on GitHub.
+
+* [`pg`](https://github.com/ged/ruby-pg): Ruby interface to the PostgreSQL RDBMS.
+
+  By default, Rails uses the SQLite3 Database. To begin a Rails
+  project with Postgres, run the following command:
+
+  * `rails new myproject --database=postgresql`
+
+* [`postgres_ext`](https://github.com/dockyard/postgres_ext): Adds missing native PostgreSQL data
+  types to ActiveRecord and convenient querying extensions for ActiveRecord and Arel for Rails 4.x
+
+* [`postgres_ext-postgis`](https://github.com/dockyard/postgres_ext-postgis): Extends
+  ActiveRecord's data type handling and query methods in both Arel and ActiveRecord.
+
+* [`postgres_ext-serializers`](https://github.com/dockyard/postgres_ext-serializers): Will take
+  over anytime you try to serialize an ActiveRecord::Relation.
+
+* [`will_paginate`](https://github.com/mislav/will_paginate): Pagination library.
+
+#### Development
+
+* [`bullet`](https://github.com/flyerhzm/bullet): Helps increase your application's
+  performance by reducing the number of queries it makes.
+
+* [`byebug`](https://github.com/deivid-rodriguez/byebug): Debugger.
+
+* [`quiet_assets`](https://github.com/evrone/quiet_assets): Turns off the Rails asset pipeline log.
+
+* [`thin`](https://github.com/macournoyer/thin/): Tiny, fast, and funny HTTP server.
+
+#### Testing
+
+* [`capybara`](https://github.com/jnicklas/capybara): Simulates how a real user would
+  interact with your app.
+
+* [`capybara-email`](https://github.com/dockyard/capybara-email): Easily test ActionMailer
+  and Mail messages in your Capybara integration tests.
+
+* [`capybara-extensions`](https://github.com/dockyard/capybara-extensions): Extends
+  Capybara's finders and matchers with additional methods for interacting with
+  tables, lists, list items, and many HTML5 elements
+
+* [`database_cleaner`](https://github.com/DatabaseCleaner/database_cleaner): Set of strategies
+  for cleaning your database; ensures clean state during tests.
+
+* [`m`](https://github.com/qrush/m): Test runner that can run tests by line number.
+
+* [`minitest-spec-rails`](https://github.com/metaskills/minitest-spec-rails): Makes it easy
+  to use the MiniTest::Spec DSL.
+
+* [`valid_attribute`](https://github.com/bcardarella/valid_attribute): Minimalist matcher for validation.
+
+#### Production
+
+* [`fog`](https://github.com/fog/fog): Cloud services library.
+
+* [`unicorn`](https://github.com/defunkt/unicorn): Rack HTTP server for fast clients and Unix.
