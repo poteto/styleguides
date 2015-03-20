@@ -9,7 +9,6 @@
     1. [ActiveRecord Queries](#activerecord-queries)
 1.  [Migrations](#migrations)
 1.  [Views](#views)
-1.  [Bundler](#bundler)
 1.  [Testing](#testing)
 1.  [Gems](#gems)
 
@@ -240,12 +239,9 @@ method in the view helper or the model.
 
 * Mitigate code duplication by using partial templates and layouts.
 
-## Bundler
-
-* Put gems used only for development or testing in the appropriate group
-in the Gemfile.
-
 ## Testing
+
+TODO: fill this in.
 
 ## Gems
 
@@ -268,9 +264,9 @@ group :development do
 end
 ```
 
-### Useful gems
+## Useful gems
 
-#### General
+### General
 
 * [`active_model_serializers`](https://github.com/rails-api/active_model_serializers): Brings
   convention over configuration to your JSON generation.
@@ -318,7 +314,7 @@ end
 
 * [`will_paginate`](https://github.com/mislav/will_paginate): Pagination library.
 
-#### Development
+### Development
 
 * [`bullet`](https://github.com/flyerhzm/bullet): Helps increase your application's
   performance by reducing the number of queries it makes.
@@ -329,7 +325,7 @@ end
 
 * [`thin`](https://github.com/macournoyer/thin/): Tiny, fast, and funny HTTP server.
 
-#### Testing
+### Testing
 
 * [`capybara`](https://github.com/jnicklas/capybara): Simulates how a real user would
   interact with your app.
@@ -351,7 +347,7 @@ end
 
 * [`valid_attribute`](https://github.com/bcardarella/valid_attribute): Minimalist matcher for validation.
 
-#### Production
+### Production
 
 * [`fog`](https://github.com/fog/fog): Cloud services library.
 
