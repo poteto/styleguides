@@ -269,6 +269,17 @@ method in the view helper or the model.
 
 * Mitigate code duplication by using partial templates and layouts.
 
+```ruby
+# index.html.erb
+<h1>Products</h1>
+<%= render partial: "product", collection: @products %>
+```
+
+```ruby
+# _product.html.erb
+<p>Product Name: <%= product.name %></p>
+```
+
 ## Testing
 
 * Use `MiniTest::Spec` instead of `RSpec`.
@@ -333,12 +344,19 @@ end
 
 ### Grouping your dependencies
 
-Place gems in their appropriate group environment. Bundler provides a `groups` feature
-that allows you to seperate your gem dependencies into environments that
-make the most sense.
+If applicable, place gems in their appropriate group environment; otherwise,
+it is OK to keep in global scope. Bundler provides a `groups` feature that
+allows you to separate your gem dependencies into environments that make
+the most sense.
 
 ```ruby
-# bad
+# bad (should be global)
+group :development, :test, :production, :staging
+  gem 'pg'
+  gem 'simple_form'
+end
+
+# bad (byebug is for dev only)
 gem 'byebug'
 
 # good in-line syntax
@@ -395,9 +413,6 @@ end
 * [`postgres_ext-postgis`](https://github.com/dockyard/postgres_ext-postgis): Extends
   ActiveRecord's data type handling and query methods in both Arel and ActiveRecord.
 
-* [`postgres_ext-serializers`](https://github.com/dockyard/postgres_ext-serializers): Will take
-  over anytime you try to serialize an ActiveRecord::Relation.
-
 * [`will_paginate`](https://github.com/mislav/will_paginate): Pagination library.
 
 ### Development
@@ -425,8 +440,6 @@ end
 
 * [`database_cleaner`](https://github.com/DatabaseCleaner/database_cleaner): Set of strategies
   for cleaning your database; ensures clean state during tests.
-
-* [`m`](https://github.com/qrush/m): Test runner that can run tests by line number.
 
 * [`minitest-spec-rails`](https://github.com/metaskills/minitest-spec-rails): Makes it easy
   to use the MiniTest::Spec DSL.
