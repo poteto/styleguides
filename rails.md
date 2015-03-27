@@ -14,6 +14,22 @@
 
 ## Routing
 
+* You can use `resources` to create routes for the seven default actions (index,
+  show, new, create, edit, update, and destroy).
+
+```ruby
+resources :subscriptions
+```
+
+* However, blindly using `resources` can be seen as a leaky abstraction. Instead, you should use the `:only` and `:except` options to
+fine-tune this behavior.
+
+```ruby
+resources :photos, only: [:index, :show]
+
+resouces :photos, except: :destroy
+```
+
 *  When you need to add more actions to a RESTful resource, use `member` and `collection` routes.
 
 ```ruby
@@ -26,6 +42,8 @@ resources :subscriptions do
   get 'unsubscribe', on: :member
 end
 ```
+
+* Nest route declarations under existing resources.
 
 ```ruby
 # bad
@@ -57,58 +75,36 @@ resources :photos do
 end
 ```
 
-* Use nested routes to clearly represent the relationship between ActiveRecord models.
-
-```ruby
-class Post < ActiveRecord::Base
-  has_many :comments
-end
-
-class Comments < ActiveRecord::Base
-  belongs_to :post
-end
-
-# routes.rb
-resources :posts do
-  resources :comments
-end
-```
-
-* Use namespaced routes to group related actions.
+* Use namespaced routes to group related actions and API versioning.
 
 ```ruby
 namespace :admin do
   resources :products
+end
+
+namespace :api do
+  namespace :v1 do
+    resources :users
+  end
 end
 ```
 
 ## Controllers
 
 *  Keep the controllers light. They shouldn't contain any business logic. All the business
-   logic should reside in the model.
+   logic should reside in an external class.
+
+*  Use controller/context based validations rather than lumping them into the model (See the
+   [`context_validations`](https://github.com/dockyard/ruby-context_validations) gem in the [gems](#gems) section).
 
 ## Models
-
-### Naming Conventions
-
-* By default, Active Record uses some naming conventions to find out how
-the mapping between models and database tables should be created.
-
-* Rails will pluralize your class names to find the respective database
-table.
-  * Active Record Database Table: snake case (e.g., `book_clubs`).
-  * Model Class: camel case (e.g., `BookClub`).
-  * Constants: all uppercase and snake case if multiple works (e.g.,
-    BOOK_CLUBS)
-
-* Name the models with meaningful (but short) names without abbreviations.
 
 ### ActiveRecord
 
 * Avoid altering ActiveRecord defaults (table names, primary key, etc)
   unless you have a very good reason.
 
-* Group macro-style methods (`has_many`, `validates`, etc) in the beginning
+* Group macro-style methods (`has_many`, `default_scope`, etc) in the beginning
    of the class definition.
 
 ```ruby
@@ -123,18 +119,12 @@ class User < ActiveRecord::Base
   belongs_to :country
   has_many :authentications, dependent: :destroy
 
-  # and validation macros
-  validates :email, presence: true
-  validates :username, presence: true
-  validates :username, uniqueness: { case_sensitive: false }
-
-  # next we have callbacks
-  before_save :cook
-  before_save :update_username_lower
-
   ...
 end
 ```
+
+* Refer to [7 Patterns to Refactor Fat
+  Models](http://blog.codeclimate.com/blog/2012/10/17/7-ways-to-decompose-fat-activerecord-models/) for more helpful model guidelines.
 
 ### ActiveRecord Queries
 
@@ -174,7 +164,7 @@ User.find_each do |user|
 end
 ```
 
-* Favor the use of where.not over SQL.
+* Favor the use of `where.not` over SQL.
 
 ```ruby
 # bad
@@ -183,6 +173,40 @@ User.where("id != ?", id)
 # good
 User.where.not(id: id)
 ```
+
+* Avoid N+1 queries. For example, given the relationship below:
+
+```ruby
+# blog model
+class Post < ActiveRecord::Base
+  belongs_to :author
+end
+
+# authors model
+class Author < ActiveRecord::Base
+  has_many :posts
+end
+```
+
+The first line of code below will send 6 (5+1) queries to the database, 1 to fetch the
+5 recent posts and then 5 for their corresponding authors. Instead, use
+the `includes` method to ensure all the associated data is loaded with
+the minumum number of queries.
+
+```ruby
+# bad
+
+#controller
+@recent_posts = Post.order(published_at: :desc).limit(5)
+
+# good
+
+# controller
+@recent_posts = Post.order(published_at: :desc).includes(:authors).limit(5)
+```
+
+* Use [Bullet](https://github.com/flyerhzm/bullet), which will watch your queries while you develop your application and
+  notify you when you should add eager loading (N+1 queries).
 
 ## Migrations
 
@@ -206,25 +230,31 @@ class CreateProducts < ActiveRecord::Migration
 end
 ```
 
-* When adding tables or columns, use the `change` method instead of `up` and `down` methods.
+* Migrations should be reversible when possible.
+
+* When the logic is simple, use the `change` method. When using `change`,
+  Active Record can automatically figure out how to reverse
+  your migration.
 
 ```ruby
-# the old way
-class AddNameToPeople < ActiveRecord::Migration
-  def up
-    add_column :people, :name, :string
-  end
-
-  def down
-    remove_column :people, :name
-  end
-end
-
-# the new prefered way
 class AddNameToPeople < ActiveRecord::Migration
   def change
     add_column :people, :name, :string
   end
+end
+```
+
+* However, if you want to do something more complex that Active Record
+  can't automatically reverse, you should use the `up` and `down`
+  methods.
+
+```ruby
+def up
+ remove_column :products, :tax_percent
+end
+
+def down
+ add_column :products, :tax_percent, :decimal, null: false, :precision => 6, :scale => 4
 end
 ```
 
@@ -241,7 +271,63 @@ method in the view helper or the model.
 
 ## Testing
 
-TODO: fill this in.
+* Use `MiniTest::Spec` instead of `RSpec`.
+
+* Unit test controllers for validation/context specific behavior. Unit
+  test model methods. And do not test views.
+
+* Rely on unit tests to test the permutations of sad paths rather than
+  pushing that complexity to integration tests.
+
+* Test happy paths and one general sad path in integration tests.
+
+* Use `must_match_schema` and `must_match_payload` gems for API integration tests.
+
+```ruby
+describe '#index' do
+  context 'current user\'s addresses' do
+    it 'returns the correct JSON format' do
+      @response.must_match_schema({ addresses: [:id, :street,
+:city] })
+    end
+
+    it 'returns the correct payload' do
+      @response.must_match_payload({
+        addresses: [ id: 1, street: 'Milk St', city: 'Boston']
+      })
+    end
+  end
+```
+
+* Make heavy use of `describe` and `context`. Name the describe blocks in unit tests as follows:
+
+  * use "description" for non-methods
+  * use pound "#method" for instance methods
+  * use dot ".method" for class methods
+
+```ruby
+# model
+class Article
+  def summary
+    #...
+  end
+
+  def self.latest
+    #...
+  end
+end
+
+# test
+describe Article do
+  describe '#summary' do
+    #...
+  end
+
+  describe '.latest' do
+    #...
+  end
+end
+```
 
 ## Gems
 
