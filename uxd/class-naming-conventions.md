@@ -2,10 +2,10 @@
 
 ## No IDs for Style Hooks
 
-Don&rsquo;t use IDs to attach visual and interactive styles to elements.
+Don’t use IDs to attach visual and interactive styles to elements.
 Everything that needs style can be done without IDs. Avoid usage
 because of their heightened specificity. For more, refer to
-[CSS Wizardry&rsquo;s &ldquo;Pain in the class&ldquo; blog post]
+[CSS Wizardry’s “Pain in the class” blog post]
 (http://csswizardry.com/2011/09/when-using-ids-can-be-a-pain-in-the-class/).
 Only use IDs for
 [fragment identifiers]
@@ -14,7 +14,7 @@ Only use IDs for
 ## BEM Naming Conventions
 
 Use `.block__element--modifier` syntax for naming classes. Refer to
-[CSS Wizardry&rsquo;s MindBEMding blog post]
+[CSS Wizardry’s MindBEMding blog post]
 (http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
 and the
 [BEM website]
@@ -67,7 +67,7 @@ and the
 * `--l` for left side.
 * `--s` for size small.
 * `--m` for size medium.
-* `--b` for size big (didn&rsquo;t want it to be `--l`, which would
+* `--b` for size big (didn’t want it to be `--l`, which would
   be confused with left). Example:
 
       .l-wrap--s,
@@ -76,7 +76,7 @@ and the
         margin-left: auto;
         width: 90%;
       }
-      
+
       .l-wrap--s {
         max-width: 640px;
       }
@@ -84,8 +84,8 @@ and the
       .l-wrap--b {
         max-width: 1020px;
       }
-  
-  If three sizes aren&rsquo;t enough, we can use xs, s, m, b, xb.
+
+  If three sizes aren’t enough, we can use xs, s, m, b, xb.
 
 ## Common Patterns
 
@@ -100,7 +100,7 @@ and the
     we would style it by nesting (`.gems .gem__name` on the index page and
     `.gem .gem__name` on the show / detail page).
 
-2.  Plurals should be used when possible for groups of items.
+1.  Plurals should be used when possible for groups of items.
     [Here is a JS bin to illustrate this pattern.]
     (http://jsbin.com/cusese/2/embed?html,css,output)
     ![Footer](images/footer.png)
