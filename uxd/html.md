@@ -43,8 +43,8 @@ between the date and its
 * Add TODO’s for placeholder links, images and copy that needs to be
   updated.
 
-      {{! TODO update link}}
-      {{link-to "Let’s talk" "" class="cta l-testimonial__cta"}}
+      <!-- TODO update link -->
+      <a href="#">This is a link</a>
 
 * Explain anything that may be confusing.
 
