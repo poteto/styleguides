@@ -37,8 +37,8 @@ between the date and its
 
 ## Comments
 
-* Pseudo code loops and conditionals to make it easier for
-  engineers.
+* [Pseudo code loops and conditionals to make it easier for engineers.]
+  (http://reefpoints.dockyard.com/2015/03/31/helping-our-engineers.html)
 
 * Add TODO’s for placeholder links, images and copy that needs to be
   updated.
